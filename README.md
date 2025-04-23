@@ -112,9 +112,6 @@ SUMMARYGenie/
 2. Sign up for an account
 3. Navigate to the API section to obtain your API key
 
-## App UI
-
-
 ### Mistral API (via Together)
 1. Visit [Together AI](https://www.together.ai/)
 2. Create an account
