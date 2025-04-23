@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InfoDraftAI - Your personal tool for information summarization</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+
+        body {
+            font-family: "Roboto", sans-serif;
+            padding: 20px;
+            color: #efe8f9;
+            background-image: linear-gradient(to right, #04010c, #211B35);
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #211b35;
+
+            border-radius: 20px;
+        }
+        .inner-container{
+            width: 80%;
+            padding: 30px;
+            background-color: #04010c;
+            border-radius: 20px;
+            margin-left: auto;
+            margin-right:auto;
+        }
+        h1 {
+            font-size: 65px;
+            font-weight: 900;
+            color: #e8f1f9;
+            margin-bottom: 5px;
+        }
+        .description {
+            font-size: 15px;
+            margin: 5px 0 25px 10px;
+        }
+        .query-input {
+            width: 70%;
+            padding: 10px 20px;
+            margin: 10px 15px 10px 0;
+            font-size: 18px;
+            border-radius: 25px;
+            border: 2px solid rgba(255,255,255,.2);
+            background: transparent;
+            outline: none;
+            color: #fff;
+        }
+        .btn-go {
+            padding: 10px 20px;
+            background-color: #6f36f5;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition-duration: 0.4s;
+        }
+        .btn-go:hover {
+            background-color: #b8a4da;
+            color: #0e0520;
+        }
+        .spinner {
+            display: none;
+            font-size: 18px;
+            color: #3498db;
+            margin-top: 20px;
+        }
+
+        .result {
+            margin-top: 30px;
+        }
+        .result p{
+            white-space: pre-wrap;
+            font-family: "Roboto", sans-serif;
+            color: #c1abf5;
+        }
+
+        .download-btn {
+            width: 25%;
+            padding: 10px 20px;
+            background-color: #6f36f5;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            transition-duration: 0.4s;
+            text-align: center;
+            text-decoration: none;
+        }
+        .download-btn:hover {
+            background-color: #b8a4da;
+            color: #0e0520;
+        }
+        .warning {
+            color: red;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        #typed-text::after {
+            content: '|';
+            animation: blink 1s infinite;
+            color: #fff;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📝SUMMARYGenie</h1>
+    <p class="description">A personal tool for information summarization, turning complex topics into concise insights</p>
+
+    <div class = "inner-container">
+        <p>Enter a research query below, and let the AI dig up insights for you.</p>
+
+        <!-- Input query -->
+        <form id="query-form">
+            <input type="text" id="query" class="query-input" placeholder="e.g., Impact of AI on Education in 2024" required>
+            <button type="submit" class="btn-go">Go</button>
+        </form>
+
+        <!-- Spinner for loading -->
+        <div id="loading-spinner" class="spinner">Loading the answers for you, please wait...</div>
+
+        <!-- Result display -->
+        <div id="result" class="result"></div>
+        <div id="error-message" class="warning"></div>
+    </div>
+    <!-- Download button (hidden initially) -->
+    <a id="download-link" class="download-btn" style="display:none;" href="#">📥 Download as .txt</a>
+</div>
+
+<script>
+    document.getElementById("query-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        let query = document.getElementById("query").value;
+        document.getElementById("loading-spinner").style.display = "block";
+        document.getElementById("error-message").innerHTML = "";
+        document.getElementById("result").innerHTML = "";
+        document.getElementById("download-link").style.display = "none";
+
+        // Send the query to Flask backend
+        fetch('/submit_query', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                'query': query
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.result) {
+                const resultContainer = document.getElementById("result");
+                resultContainer.innerHTML = `
+                    <h3>📄 Here's a quick summary for your provided query: '${data.query}'</h3>
+                    <p id="typed-text"></p>
+                `;
+
+                const textToType = data.result;
+                const typedTextEl = document.getElementById("typed-text");
+                let index = 0;
+
+                function typeNextChar() {
+                    if (index < textToType.length) {
+                        const char = textToType.charAt(index);
+                        typedTextEl.innerHTML += (char === '\n') ? '<br>' : char;
+                        index++;
+                        setTimeout(typeNextChar, 20);
+                    } else {
+                        document.getElementById("download-link").style.display = "block";
+                        document.getElementById("download-link").setAttribute('href', '/download/' + encodeURIComponent(data.query));
+                    }
+                }
+
+                typeNextChar();
+            } else if (data.error) {
+                document.getElementById("error-message").innerHTML = data.error;
+            }
+        })
+        .catch(error => {
+            document.getElementById("error-message").innerHTML = "An error occurred. Please try again later.";
+        })
+        .finally(() => {
+            document.getElementById("loading-spinner").style.display = "none";
+        });
+    });
+</script>
+</body>
+</html>
