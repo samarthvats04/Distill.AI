@@ -27,9 +27,7 @@
             background-size: 400% 400%;
             animation: chillGradient 7.5s ease infinite;
             font-family: "Roboto", sans-serif;
-
             color: #efe8f9;
-
             min-height: 100vh;
         }
         @keyframes chillGradient {
@@ -171,18 +169,22 @@
 
         .footer-links {
             margin-top: 15px;
+            position:relative;
+            height: 40px;
         }
 
         .footer-links a {
-            margin: 20px 100px;
+            margin: 0 100px;
             color: #b8a4da;
             text-decoration: none;
             font-size: 22px;
-            transition: color 0.3s ease;
+            transition: color 0.5s ease, transform 0.5s ease;
+            display: inline-block;
         }
 
         .footer-links a:hover {
             color: #fff;
+            transform: scale(1.2);
         }
 
     </style>
@@ -215,7 +217,7 @@
 </div>
 <footer class="footer">
     <div class="footer-content">
-        <p>Made by Samarth Vats</p>
+        <p>Made by Samarth Vats &emsp;&emsp;|&emsp;&emsp; © 2025 All rights reserved &emsp;&emsp;|&emsp;&emsp; SummaryGenie v1.0</p>
         <div class="footer-links">
             <a href="https://github.com/samarthvats04" target="_blank" title="GitHub">
                 <i class="fab fa-github fa-lg"></i>
