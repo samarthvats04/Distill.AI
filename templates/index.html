@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <title>SummaryGenie - Your personal tool for information summarization</title>
+    <title>Distill.AI - Your personal tool for distilling information</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
@@ -149,11 +149,32 @@
         .description {
             font-size: 15px;
             margin: 5px 0 25px 10px;
+            font-weight: 1000;
+        }
+
+        /* Search container and icon styles */
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            color: var(--secondary-text-dark);
+            font-size: 16px;
+            z-index: 1;
+        }
+
+        body.light-mode .search-icon {
+            color: var(--secondary-text-light);
         }
 
         .query-input {
-            width: 70%;
-            padding: 10px 20px;
+            width: 90%;
+            padding: 10px 20px 10px 40px; /* Added left padding for icon */
             margin: 10px 15px 10px 0;
             font-size: 18px;
             border-radius: 25px;
@@ -424,12 +445,15 @@
         <p class="description">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Your personal tool for distilling information; Turning Oceans of data to drops of understanding.</p>
 
         <div class="inner-container">
-            <p>Enter a research query below and let the AI dig up insights for you.</p>
+            <p style="font-weight:bold;">Enter a research query below and let the AI dig up insights for you.</p>
 
-            <!-- Input query -->
+            <!-- Input query with search icon -->
             <form id="query-form">
-                <input type="text" id="query" class="query-input" placeholder="e.g., Impact of AI on Education in 2024" required>
-                <button type="submit" class="btn-go">Go</button>
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="query" class="query-input" placeholder="e.g., Impact of AI on Education in 2024" required>
+                    <button type="submit" class="btn-go">Go</button>
+                </div>
             </form>
 
             <!-- Spinner for loading -->
@@ -484,7 +508,7 @@
         });
     });
 
-    // Original query form functionality
+    // Query form functionality
     document.getElementById("query-form").addEventListener("submit", function(event) {
         event.preventDefault();
         let query = document.getElementById("query").value;
