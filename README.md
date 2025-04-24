@@ -1,20 +1,24 @@
-# SUMMARYGenie
+# 🌊 Distill.AI
 
 ## Introduction
 
-SUMMARYGenie is an AI-powered research and summarization tool that automatically retrieves information from the web and creates concise, informative summaries on any topic. This application combines powerful search capabilities with advanced language models to provide users with comprehensive answers to research queries through a clean, user-friendly interface.
+Distill.AI is an AI-powered research and summarization tool that automatically retrieves information from the web and creates concise, informative summaries on any topic. This application combines powerful search capabilities with advanced language models to provide users with comprehensive answers to research queries through a clean, user-friendly interface.
 
 The system uses Tavily's search API to gather relevant information from across the web, and then processes this data using Mistral AI to generate well-structured, detailed summaries - all accessible through a simple web interface.
 
 ## Features
-
+### Backend:
 - **Web-based Research**: Enter any query and get comprehensive answers based on up-to-date web information
 - **AI-Powered Summarization**: Transforms raw search results into coherent, well-structured summaries
 - **LangGraph Pipeline**: Modular architecture using LangGraph for orchestrating the research workflow
-- **Elegant User Interface**: Clean, responsive design with modern gradient styling
+- **Data logging**: Automatically saves search results and answers as JSON files
+
+### Frontend:
+- **Elegant User Interface**: Clean, responsive design with modern gradient styling and a fresh, pleasant color scheme
 - **Interactive Results**: Engaging typing animation for displaying results
 - **Download Capability**: Save generated summaries as text files for later reference
-- **Data logging**: Automatically saves search results and answers as JSON files
+- **Appearance toggle**: Enabling users to switch between light and dark modes, further enhancing user experience. 
+
 
 ## Tech Stack
 
