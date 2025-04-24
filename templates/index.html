@@ -8,13 +8,47 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+
+        /* Theme variables */
+        :root {
+            /* Light Mode Variables - Improved color scheme */
+            --bg-gradient-light: linear-gradient(-45deg, #f8f9ff, #ebe4ff, #d9d0f9, #e8dfff);
+            --container-bg-light: #edeaff;
+            --inner-container-bg-light: #ffffff;
+            --text-color-light: #332252;
+            --secondary-text-light: #523b7d;
+            --heading-color-light: #15082b;
+            --input-border-light: rgba(111, 54, 245, 0.4);
+            --button-bg-light: #6f36f5;
+            --button-hover-light: #9678f7;
+            --button-text-light: #ffffff;
+            --footer-bg-light: #e8e5f9;
+            --footer-text-light: #332252;
+            --link-color-light: #6f36f5;
+
+            /* Dark Mode Variables */
+            --bg-gradient-dark: linear-gradient(-45deg, #04010c, #15082b, #332252, #22143b);
+            --container-bg-dark: #211b35;
+            --inner-container-bg-dark: #04010c;
+            --text-color-dark: #efe8f9;
+            --secondary-text-dark: #c1abf5;
+            --heading-color-dark: #e8f1f9;
+            --input-border-dark: rgba(255, 255, 255, 0.2);
+            --button-bg-dark: #6f36f5;
+            --button-hover-dark: #b8a4da;
+            --button-text-dark: #ffffff;
+            --footer-bg-dark: #04010c;
+            --footer-text-dark: #cfc5f1;
+            --link-color-dark: #b8a4da;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html, body{
+        html, body {
             overflow-x: hidden;
             width: 100%;
             height: 100%;
@@ -23,13 +57,11 @@
         body {
             display: flex;
             flex-direction: column;
-            background: linear-gradient(-45deg, #04010c, #15082b,#332252, #22143b);
-            background-size: 400% 400%;
-            animation: chillGradient 7.5s ease infinite;
             font-family: "Roboto", sans-serif;
-            color: #efe8f9;
             min-height: 100vh;
         }
+
+        /* Animation keyframes */
         @keyframes chillGradient {
             0% {
                 background-position: 0% 50%;
@@ -41,62 +73,129 @@
                 background-position: 0% 50%;
             }
         }
+
+        /* Theme classes with animation */
+        body.dark-mode {
+            background: var(--bg-gradient-dark);
+            background-size: 400% 400%;
+            animation: chillGradient 7.5s ease infinite;
+            color: var(--text-color-dark);
+        }
+
+        body.light-mode {
+            background: var(--bg-gradient-light);
+            background-size: 400% 400%;
+            animation: chillGradient 7.5s ease infinite;
+            color: var(--text-color-light);
+        }
+
+        /* Default body theme if no class applied */
+        body {
+            background: var(--bg-gradient-dark);
+            background-size: 400% 400%;
+            animation: chillGradient 7.5s ease infinite;
+            color: var(--text-color-dark);
+        }
+
         .main-content {
             flex: 1;
             padding: 20px 0;
+            position: relative;
         }
+
+        /* Theme specific class applications */
         .container {
             width: 80%;
             margin: 0 auto;
             padding: 20px;
             padding-bottom: 100px;
-            background-color: #211b35;
+            background-color: var(--container-bg-dark);
             border-radius: 20px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
         }
 
-        .inner-container{
+        body.light-mode .container {
+            background-color: var(--container-bg-light);
+            box-shadow: 0 6px 16px rgba(111, 54, 245, 0.15);
+        }
+
+        .inner-container {
             width: 80%;
             padding: 30px;
-            background-color: #04010c;
+            background-color: var(--inner-container-bg-dark);
             border-radius: 20px;
             margin-left: auto;
-            margin-right:auto;
+            margin-right: auto;
         }
+
+        body.light-mode .inner-container {
+            background-color: var(--inner-container-bg-light);
+            box-shadow: 0 4px 12px rgba(111, 54, 245, 0.1);
+        }
+
         h1 {
             font-size: 65px;
             font-weight: 900;
-            color: #e8f1f9;
+            color: var(--heading-color-dark);
             margin-bottom: 5px;
+            text-shadow: 0 8px 8px rgba(183, 154, 250, 0.2);
         }
+
+        body.light-mode h1 {
+            color: var(--heading-color-light);
+            text-shadow: 0 8px 8px rgba(111, 54, 245, 0.2);
+        }
+
         .description {
             font-size: 15px;
             margin: 5px 0 25px 10px;
         }
+
         .query-input {
             width: 70%;
             padding: 10px 20px;
             margin: 10px 15px 10px 0;
             font-size: 18px;
             border-radius: 25px;
-            border: 2px solid rgba(255,255,255,.2);
+            border: 2px solid var(--input-border-dark);
             background: transparent;
             outline: none;
-            color: #fff;
+            color: var(--text-color-dark);
         }
+
+        body.light-mode .query-input {
+            border: 2px solid var(--input-border-light);
+            color: var(--text-color-light);
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
         .btn-go {
             padding: 10px 20px;
-            background-color: #6f36f5;
-            color: white;
+            background-color: var(--button-bg-dark);
+            color: var(--button-text-dark);
             font-size: 18px;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             transition-duration: 0.4s;
         }
+
         .btn-go:hover {
-            background-color: #b8a4da;
+            background-color: var(--button-hover-dark);
             color: #0e0520;
+            transform: translateY(-2px);
         }
+
+        body.light-mode .btn-go {
+            background-color: var(--button-bg-light);
+            color: var(--button-text-light);
+        }
+
+        body.light-mode .btn-go:hover {
+            background-color: var(--button-hover-light);
+            transform: translateY(-2px);
+        }
+
         .spinner {
             display: none;
             font-size: 18px;
@@ -107,17 +206,30 @@
         .result {
             margin-top: 30px;
         }
-        .result p{
+
+        .result h3 {
+            color: var(--text-color-dark);
+        }
+
+        body.light-mode .result h3 {
+            color: var(--text-color-light);
+        }
+
+        .result p {
             white-space: pre-wrap;
             font-family: "Roboto", sans-serif;
-            color: #c1abf5;
+            color: var(--secondary-text-dark);
+        }
+
+        body.light-mode .result p {
+            color: var(--secondary-text-light);
         }
 
         .download-btn {
             width: 25%;
             padding: 10px 20px;
-            background-color: #6f36f5;
-            color: white;
+            background-color: var(--button-bg-dark);
+            color: var(--button-text-dark);
             font-size: 18px;
             border: none;
             border-radius: 25px;
@@ -128,58 +240,93 @@
             transition-duration: 0.4s;
             text-align: center;
             text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
         .download-btn:hover {
-            background-color: #b8a4da;
+            background-color: var(--button-hover-dark);
             color: #0e0520;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(183, 154, 250, 0.25);
         }
+
+        body.light-mode .download-btn {
+            background-color: var(--button-bg-light);
+            color: var(--button-text-light);
+            box-shadow: 0 4px 8px rgba(111, 54, 245, 0.2);
+        }
+
+        body.light-mode .download-btn:hover {
+            background-color: var(--button-hover-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(111, 54, 245, 0.25);
+        }
+
         .warning {
             color: red;
             font-size: 18px;
             margin-top: 20px;
         }
+
         #typed-text::after {
             content: '|';
             animation: blink 1s infinite;
-            color: #fff;
+            color: var(--text-color-dark);
+        }
+
+        body.light-mode #typed-text::after {
+            color: var(--text-color-light);
         }
 
         @keyframes blink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
         }
+
         .footer {
             width: 100%;
             padding: 20px;
-            background-color: #04010c;
-            color: #cfc5f1;
+            background-color: var(--footer-bg-dark);
+            color: var(--footer-text-dark);
             text-align: center;
             font-family: "Inter", sans-serif;
-            margin-top:auto;
+            margin-top: auto;
+        }
+
+        body.light-mode .footer {
+            background-color: var(--footer-bg-light);
+            color: var(--footer-text-light);
         }
 
         .footer-content {
             max-width: 800px;
             margin: 10px auto;
         }
-        .footer-content p{
+
+        .footer-content p {
             margin-bottom: 25px;
             font-size: 16px;
         }
 
         .footer-links {
             margin-top: 15px;
-            position:relative;
+            position: relative;
             height: 40px;
         }
 
         .footer-links a {
             margin: 0 100px;
-            color: #b8a4da;
+            color: var(--link-color-dark);
             text-decoration: none;
             font-size: 22px;
-            transition: color 0.5s ease, transform 0.5s ease;
+            transition: color 0.3s ease, transform 0.3s ease;
             display: inline-block;
+        }
+
+        body.light-mode .footer-links a {
+            color: var(--link-color-light);
         }
 
         .footer-links a:hover {
@@ -187,53 +334,157 @@
             transform: scale(1.2);
         }
 
+        body.light-mode .footer-links a:hover {
+            color: #15082b;
+        }
+
+        /* Theme toggle switch styling */
+        .theme-switch-container {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .theme-switch {
+            display: inline-block;
+            height: 28px;
+            position: relative;
+            width: 54px;
+        }
+
+        .theme-switch input {
+            display: none;
+        }
+
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+            border-radius: 34px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider:before {
+            background-color: white;
+            bottom: 4px;
+            content: "";
+            height: 20px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 20px;
+            border-radius: 50%;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        input:checked + .slider {
+            background-color: #6f36f5;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .slider-icon {
+            color: #FFD700;
+            margin: 0 5px;
+            font-size: 16px;
+        }
+
+        body.light-mode .slider-icon.fa-moon {
+            color: #6f36f5;
+        }
+
+        body.dark-mode .slider-icon.fa-sun {
+            color: #FFD700;
+        }
     </style>
 </head>
-<body>
+<body class="dark-mode">
 <div class="main-content">
-<div class="container">
-    <h1>📝SUMMARYGenie</h1>
-    <p class="description">A personal tool for information summarization, turning complex topics into concise insights</p>
-
-    <div class = "inner-container">
-        <p>Enter a research query below, and let the AI dig up insights for you.</p>
-
-        <!-- Input query -->
-        <form id="query-form">
-            <input type="text" id="query" class="query-input" placeholder="e.g., Impact of AI on Education in 2024" required>
-            <button type="submit" class="btn-go">Go</button>
-        </form>
-
-        <!-- Spinner for loading -->
-        <div id="loading-spinner" class="spinner">Loading the answers for you, please wait...</div>
-
-        <!-- Result display -->
-        <div id="result" class="result"></div>
-        <div id="error-message" class="warning"></div>
+    <!-- Theme toggle switch -->
+    <div class="theme-switch-container">
+        <i class="fas fa-sun slider-icon"></i>
+        <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle" checked>
+            <span class="slider"></span>
+        </label>
+        <i class="fas fa-moon slider-icon"></i>
     </div>
-    <!-- Download button (hidden initially) -->
-    <a id="download-link" class="download-btn" style="display:none;" href="#">📥 Download as .txt</a>
-</div>
+
+    <div class="container">
+        <h1>🧞SUMMARYGenie</h1>
+        <p class="description">A personal tool for information summarization, turning complex topics into concise insights</p>
+
+        <div class="inner-container">
+            <p>Enter a research query below and let the AI dig up insights for you.</p>
+
+            <!-- Input query -->
+            <form id="query-form">
+                <input type="text" id="query" class="query-input" placeholder="e.g., Impact of AI on Education in 2024" required>
+                <button type="submit" class="btn-go">Go</button>
+            </form>
+
+            <!-- Spinner for loading -->
+            <div id="loading-spinner" class="spinner">Loading the answers for you, please wait...</div>
+
+            <!-- Result display -->
+            <div id="result" class="result"></div>
+            <div id="error-message" class="warning"></div>
+        </div>
+        <!-- Download button (hidden initially) -->
+        <a id="download-link" class="download-btn" style="display:none;" href="#">📥 Download as .txt</a>
+    </div>
 </div>
 <footer class="footer">
     <div class="footer-content">
         <p>Made by Samarth Vats &emsp;&emsp;|&emsp;&emsp; © 2025 All rights reserved &emsp;&emsp;|&emsp;&emsp; SummaryGenie v1.0</p>
         <div class="footer-links">
-            <a href="https://github.com/samarthvats04" target="_blank" title="GitHub">
+            <a href="https://github.com/samarthvats04" target="_blank">
                 <i class="fab fa-github fa-lg"></i>
             </a>
-            <a href="https://www.linkedin.com/in/samarth-vats-306930281/" target="_blank" title="LinkedIn">
+            <a href="https://www.linkedin.com/in/samarth-vats-306930281/" target="_blank">
                 <i class="fab fa-linkedin fa-lg"></i>
             </a>
-            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=samarthvats004@gmail.com" target="_blank" title="Email">
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=samarthvats004@gmail.com" target="_blank">
                 <i class="fas fa-envelope fa-lg"></i>
             </a>
         </div>
     </div>
 </footer>
 
-
 <script>
+    // Theme switching functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const themeToggle = document.getElementById('theme-toggle');
+
+        // Check for saved theme preference or use default dark theme
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.body.className = currentTheme + '-mode';
+
+        // Update checkbox state based on current theme
+        themeToggle.checked = currentTheme === 'dark';
+
+        // Handle theme toggle changes
+        themeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                document.body.className = 'dark-mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.className = 'light-mode';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    });
+
+    // Original query form functionality
     document.getElementById("query-form").addEventListener("submit", function(event) {
         event.preventDefault();
         let query = document.getElementById("query").value;
